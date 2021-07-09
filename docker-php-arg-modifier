@@ -1,0 +1,16 @@
+#!/bin/sh
+set -e
+
+ARGS=$1
+
+for MODFIFIER in $2
+do
+  if [ $(echo $MODFIFIER | cut -c1) = "-" ]; then
+    ARG=$(echo $MODFIFIER | cut -d "-" -f2-)
+    ARGS=$(echo " $ARGS " | sed "s/ $ARG / /g" | xargs)
+  else
+    ARGS="$ARGS $MODFIFIER"
+  fi
+done
+
+echo $ARGS
